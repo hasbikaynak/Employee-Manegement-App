@@ -1,5 +1,6 @@
 package com.ema.controller;
 
+import com.ema.domain.Employee;
 import com.ema.dto.EmployeeDTO;
 import com.ema.dto.response.EMAResponse;
 import com.ema.dto.response.ResponseMessage;
@@ -7,10 +8,7 @@ import com.ema.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/employee")
@@ -28,5 +26,12 @@ public class EmployeeController {
       emaResponse.setSuccess(true);
 
       return ResponseEntity.ok(emaResponse);
+    }
+
+    //http://localhost:8080/employee/1
+    @GetMapping("/{id}")
+    public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable Long id){
+       EmployeeDTO result = employeeService.getEmployeeById(id);
+       return ResponseEntity.ok(result);
     }
 }
