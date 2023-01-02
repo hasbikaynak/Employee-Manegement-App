@@ -43,4 +43,14 @@ public class EmployeeController {
        List<EmployeeDTO> result= employeeService.getAllEmployees();
        return ResponseEntity.ok(result);
     }
+
+    //http://localhost:8080/employee/1
+    @PutMapping("/{id}")
+    public ResponseEntity<EMAResponse> updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeDTO employeeDTO){
+      employeeService.updateEmployee(id,employeeDTO);
+
+      EMAResponse result = new EMAResponse(ResponseMessage.EMPLOYEE_UPDATE_RESPONSE_MESSAGE,true);
+      return ResponseEntity.ok(result);
+    }
+
 }

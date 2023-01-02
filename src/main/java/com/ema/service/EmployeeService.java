@@ -6,7 +6,6 @@ import com.ema.exception.ResourceNotFoundException;
 import com.ema.exception.message.ErrorMessage;
 import com.ema.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class EmployeeService {
     }
 
     public EmployeeDTO getEmployeeById(Long id) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.EMPLOYEE_NOT_FOUND_MESSAGE,id)));
+        Employee employee = getById(id);
         EmployeeDTO employeeDTO = new EmployeeDTO();
         employeeDTO.setFirstName(employee.getFirstName());
         employeeDTO.setLastName(employee.getLastName());
@@ -49,5 +48,17 @@ public class EmployeeService {
             employeeDTOList.add(employeeDTO);
         }
         return employeeDTOList;
+    }
+
+    public void updateEmployee(Long id,EmployeeDTO employeeDTO){
+        Employee employee = getById(id);
+        employee.setFirstName(employeeDTO.getFirstName());
+        employee.setLastName(employeeDTO.getLastName());
+        employee.setEmail(employeeDTO.getEmail());
+        employeeRepository.save(employee);
+    }
+
+    public Employee getById(Long id){
+        return employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.EMPLOYEE_NOT_FOUND_MESSAGE,id)));
     }
 }
