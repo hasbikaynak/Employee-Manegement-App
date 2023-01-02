@@ -39,8 +39,8 @@ public class EmployeeController {
 
     //http://localhost:8080/employee
     @GetMapping
-    public ResponseEntity<List<EmployeeDTO>> getEmployee(){
-       List<EmployeeDTO> result= employeeService.getAllEmployees();
+    public ResponseEntity<List<Employee>> getAllEmployee(){
+       List<Employee> result= employeeService.getAllEmployees();
        return ResponseEntity.ok(result);
     }
 
@@ -51,6 +51,15 @@ public class EmployeeController {
 
       EMAResponse result = new EMAResponse(ResponseMessage.EMPLOYEE_UPDATE_RESPONSE_MESSAGE,true);
       return ResponseEntity.ok(result);
+    }
+
+    //http://localhost:8080/employee/1
+    @DeleteMapping("/{id}")
+    public ResponseEntity<EMAResponse> deleteEmployee(@PathVariable Long id){
+        employeeService.deleteEmployee(id);
+
+        EMAResponse result = new EMAResponse(ResponseMessage.EMPLOYEE_DELETE_RESPONSE_MESSAGE,true);
+        return ResponseEntity.ok(result);
     }
 
 }

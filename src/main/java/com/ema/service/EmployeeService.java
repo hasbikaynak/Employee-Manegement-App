@@ -34,20 +34,20 @@ public class EmployeeService {
         return employeeDTO;
     }
 
-    public List<EmployeeDTO> getAllEmployees(){
+    public List<Employee> getAllEmployees(){
         List<Employee> employeeList = employeeRepository.findAll();
 
-        List<EmployeeDTO> employeeDTOList = new ArrayList<>();
+//        List<EmployeeDTO> employeeDTOList = new ArrayList<>();
 
-        for (Employee employee: employeeList) {
-            EmployeeDTO employeeDTO = new EmployeeDTO();
-            employeeDTO.setFirstName(employee.getFirstName());
-            employeeDTO.setLastName(employee.getLastName());
-            employeeDTO.setEmail(employee.getEmail());
-
-            employeeDTOList.add(employeeDTO);
-        }
-        return employeeDTOList;
+//        for (Employee employee: employeeList) {
+//            EmployeeDTO employeeDTO = new EmployeeDTO();
+//            employeeDTO.setFirstName(employee.getFirstName());
+//            employeeDTO.setLastName(employee.getLastName());
+//            employeeDTO.setEmail(employee.getEmail());
+//
+//            employeeDTOList.add(employeeDTO);
+//        }
+        return employeeList;
     }
 
     public void updateEmployee(Long id,EmployeeDTO employeeDTO){
@@ -60,5 +60,9 @@ public class EmployeeService {
 
     public Employee getById(Long id){
         return employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(String.format(ErrorMessage.EMPLOYEE_NOT_FOUND_MESSAGE,id)));
+    }
+
+    public void deleteEmployee(Long id) {
+        employeeRepository.deleteById(id);
     }
 }
