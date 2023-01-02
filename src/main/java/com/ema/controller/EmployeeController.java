@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -32,6 +34,13 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable Long id){
        EmployeeDTO result = employeeService.getEmployeeById(id);
+       return ResponseEntity.ok(result);
+    }
+
+    //http://localhost:8080/employee
+    @GetMapping
+    public ResponseEntity<List<EmployeeDTO>> getEmployee(){
+       List<EmployeeDTO> result= employeeService.getAllEmployees();
        return ResponseEntity.ok(result);
     }
 }

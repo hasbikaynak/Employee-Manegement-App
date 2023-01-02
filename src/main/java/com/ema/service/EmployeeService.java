@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EmployeeService {
 
@@ -30,5 +33,21 @@ public class EmployeeService {
         employeeDTO.setLastName(employee.getLastName());
         employeeDTO.setEmail(employee.getEmail());
         return employeeDTO;
+    }
+
+    public List<EmployeeDTO> getAllEmployees(){
+        List<Employee> employeeList = employeeRepository.findAll();
+
+        List<EmployeeDTO> employeeDTOList = new ArrayList<>();
+
+        for (Employee employee: employeeList) {
+            EmployeeDTO employeeDTO = new EmployeeDTO();
+            employeeDTO.setFirstName(employee.getFirstName());
+            employeeDTO.setLastName(employee.getLastName());
+            employeeDTO.setEmail(employee.getEmail());
+
+            employeeDTOList.add(employeeDTO);
+        }
+        return employeeDTOList;
     }
 }
