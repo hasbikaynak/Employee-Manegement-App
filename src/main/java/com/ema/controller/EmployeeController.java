@@ -18,7 +18,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    //http://localhost:8080/employee/add
+    //http://localhost:8081/employee/add
     @PostMapping("/add")
     public ResponseEntity<EMAResponse> saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO){
       employeeService.saveEmployee(employeeDTO);
@@ -30,21 +30,21 @@ public class EmployeeController {
       return ResponseEntity.ok(emaResponse);
     }
 
-    //http://localhost:8080/employee/1
+    //http://localhost:8081/employee/1
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable Long id){
        EmployeeDTO result = employeeService.getEmployeeById(id);
        return ResponseEntity.ok(result);
     }
 
-    //http://localhost:8080/employee
+    //http://localhost:8081/employee
     @GetMapping
     public ResponseEntity<List<Employee>> getAllEmployee(){
        List<Employee> result= employeeService.getAllEmployees();
        return ResponseEntity.ok(result);
     }
 
-    //http://localhost:8080/employee/1
+    //http://localhost:8081/employee/1
     @PutMapping("/{id}")
     public ResponseEntity<EMAResponse> updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeDTO employeeDTO){
       employeeService.updateEmployee(id,employeeDTO);
@@ -53,7 +53,7 @@ public class EmployeeController {
       return ResponseEntity.ok(result);
     }
 
-    //http://localhost:8080/employee/1
+    //http://localhost:8081/employee/1
     @DeleteMapping("/{id}")
     public ResponseEntity<EMAResponse> deleteEmployee(@PathVariable Long id){
         employeeService.deleteEmployee(id);
